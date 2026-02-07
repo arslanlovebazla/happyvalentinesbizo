@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valentine For Bizo</title>
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        video {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 30px;
+            min-height: 60px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
+
+        #yesBtn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            z-index: 100;
+        }
+
+        #noBtn {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #successPage {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .yay-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff4d6d;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainPage">
+        <video autoplay muted loop playsinline>
+            <source src="minion.mov" type="video/quicktime">
+            <source src="minion.mov" type="video/mp4">
+        </video>
+
+        <h1 id="question">Will you be my valentine?</h1>
+
+        <div class="btn-group">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div id="successPage">
+        <video id="fireworksVid" loop playsinline>
+            <source src="fireworks.MP4" type="video/mp4">
+        </video>
+        <div class="yay-text">YAYYYYYY! 💖</div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainPage = document.getElementById('mainPage');
+        const successPage = document.getElementById('successPage');
+        const fireworksVid = document.getElementById('fireworksVid');
+        const question = document.getElementById('question');
+
+        let noCount = 0;
+        let scale = 1;
+
+        const messages = [
+            "Are you sure?",
+            "Are you sure you are sure?",
+            "You better say Yes",
+            "Please bizo",
+            "Please 🥺?"
+        ];
+
+        noBtn.addEventListener('click', () => {
+            if (noCount < messages.length) {
+                noBtn.innerText = messages[noCount];
+                scale += 0.5;
+                yesBtn.style.transform = `scale(${scale})`;
+                noCount++;
+            } else {
+                noBtn.style.display = 'none';
+                question.innerText = "Only YES is an option now! 😉";
+            }
+        });
+
+        yesBtn.addEventListener('click', () => {
+            mainPage.style.display = 'none';
+            successPage.style.display = 'flex';
+            fireworksVid.play();
+        });
+    </script>
+</body>
+</html>
